@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import Axios from '../node_modules/axios';
+
 
 const Context = React.createContext();
 const Reducer = (state, action) => {
@@ -9,6 +11,12 @@ const Reducer = (state, action) => {
         contacts: state.contacts.filter(contact =>
         contact.id !== action.payload)
       }
+
+      case 'Add_Contact':
+      return {
+        ...state,
+        contacts: [action.payload, ...state.contacts]
+      }  
     default:
       return state;  
 
@@ -17,14 +25,17 @@ const Reducer = (state, action) => {
 
 export  class Provider extends Component {
     state = {
-      contacts: [
-          { id:1, name:'Jonh', email:'wisanu.mywork@gmail.com', phone:'0868261122' },
-          { id:2, name:'Two', email:'two@gmail.com', phone:'0868261122' },
-          { id:3, name:'Three', email:'three@gmail.com', phone:'0868261122' },
-      ],
+      contacts: [],
       dispatch: action => this.setState(state =>
       Reducer(state, action)  
       ),
+    }
+
+    async componentDidMount(){
+      const res = await Axios.get('https://jsonplaceholder.typicode.com/users');
+      this.setState({ contacts: res.data })
+        
+ 
     }
 
     

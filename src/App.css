@@ -1,0 +1,64 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.SW_Container {
+  width: 90%;
+  margin: auto;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 3px #cccccc;
+  padding: 16px;
+  display: block;
+  
+}
+.SW_Form {
+  width: 90%;
+  margin: auto;
+  padding: 16px;
+  display: block;
+  
+}
+
+.SW_Form_Lable {
+  margin: auto;
+  padding: 0px;
+}
+
+#components-layout-demo-responsive .logo {
+  height: 32px;
+  background: rgba(255,255,255,.2);
+  margin: 16px;
+}
+
+

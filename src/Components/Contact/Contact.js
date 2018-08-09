@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { Consumer } from '../../Context';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Axios from '../../../node_modules/axios';
+
 
 export class Contact extends Component {
     constructor(){
@@ -10,15 +13,28 @@ export class Contact extends Component {
         }
     }
 
-    deleteDataInfo = (id, dispatch) => {
-        dispatch({ 
-            type:'Deleted_Contact', 
-            payload:id  
-        });
+
+
+    deleteDataInfo = async (id, dispatch) => {
+        try {
+            await Axios.delete('https://jsonplaceholder.typicode.com/users/'+id);
+
+            dispatch({ 
+                type:'Deleted_Contact', 
+                payload:id  
+            })
+            
+        } catch (e) {
+            dispatch({ 
+                type:'Deleted_Contact', 
+                payload:id  
+            })
+            
+        }  
     }
 
     render() {
-        const { name, email, phone, style, id } = this.props.contact;
+        const { name, email, phone, style, id, username } = this.props.contact;
         const { showContactInfo } = this.state;
     
         return (
@@ -26,7 +42,7 @@ export class Contact extends Component {
                 {value => {
                     const  {dispatch} = value 
                     return (
-                        <div className="card card-body mb-3">
+                        <div className="card card-body mb-3" >
                         <h4 style={style}>{name} {'  '}
                             <i className="fas fa-sort-down" 
                                 onClick={() =>
@@ -48,17 +64,37 @@ export class Contact extends Component {
                                 }}
                             />
                         </h4>  
-                        { showContactInfo ? null :
+                        { showContactInfo ? 
                             (
-                                <ul className="list-group" >
-                                <li className="list-group-item">
-                                Email: {email}
-                                </li>
-                                <li className="list-group-item">
-                                Phone : {phone}
-                                </li>
-                                </ul> 
-                            )
+                                <div className="container">
+                                    <div className="row justify-content-start">
+                                        <div className="col-3">
+                                            Email:
+                                        </div>
+                                        <div className="col-9">
+                                            {email}
+                                        </div>
+                                    </div>
+                                    <div className="row justify-content-start">
+                                        <div className="col-3">
+                                            Phone Number:
+                                        </div>
+                                        <div className="col-9">
+                                             {phone}
+                                        </div>
+                                    </div>
+                                    <div className="row justify-content-start">
+                                        <div className="col-3">
+                                            User Name:
+                                        </div>
+                                        <div className="col-9">
+                                            {username}
+                                        </div>
+                                    </div>
+
+                                </div>
+                               
+                            ) : null 
                         }
                          
             
