@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Consumer } from '../../Context';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Axios from '../../../node_modules/axios';
-
+import { Link } from 'react-router-dom';
 
 export class Contact extends Component {
     constructor(){
@@ -63,7 +63,18 @@ export class Contact extends Component {
                                     'float': 'right',
                                 }}
                             />
+                            <Link to={`contact/edit/${id}`} > 
+                                    <i className="fas fa-pencil-alt"
+                                        style={{
+                                            'cursor': 'pointer',
+                                            'color': 'back',
+                                            'float': 'right',
+                                            'marginRight': '18px',
+                                        }}
+                                    />
+                            </Link>
                         </h4>  
+                                
                         { showContactInfo ? 
                             (
                                 <div className="container">
@@ -77,7 +88,7 @@ export class Contact extends Component {
                                     </div>
                                     <div className="row justify-content-start">
                                         <div className="col-3">
-                                            Phone Number:
+                                            Phone :
                                         </div>
                                         <div className="col-9">
                                              {phone}
@@ -85,7 +96,7 @@ export class Contact extends Component {
                                     </div>
                                     <div className="row justify-content-start">
                                         <div className="col-3">
-                                            User Name:
+                                            User :
                                         </div>
                                         <div className="col-9">
                                             {username}
@@ -118,3 +129,7 @@ Contact.propTypes = {
 
 
 export default Contact;
+
+
+
+
