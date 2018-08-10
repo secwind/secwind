@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Consumer } from "../../Context";
-
 import WithFormInputGroup from "./../../HOC/WithFormInputGroup";
-import Axios from "../../../node_modules/axios";
+import PropTypes from 'prop-types'
+import { editContact } from "../../action/Action";
+import { connect } from 'react-redux'
+
 
 // import uuid from "uuid";
 
@@ -14,18 +16,21 @@ class EditContact extends Component {
     errors: {}
   };
 
-  async componentDidMount() {
+  componentWillReceiveProps(nextProps, nextState) {
+    const { name, email, phone,} = nextProps.dataContacts;
+      this.setState({
+        name,
+        email,
+        phone,
+      })
+  }
+
+  componentDidMount() {
     const { id } = this.props.match.params;
-    const res = await Axios.get(
-      `https://jsonplaceholder.typicode.com/users/${id}`
-    );
-    const contact = res.data;
-    console.log(res);
-    this.setState({
-      name: contact.name,
-      email: contact.email,
-      phone: contact.phone
-    });
+    this.props.editContact(id);
+    console.log("ID คือ",id);
+    
+
   }
   onSubmithandle = async (dispatch, e) => {
     e.preventDefault();
@@ -58,21 +63,7 @@ class EditContact extends Component {
     };
     const { id } = this.props.match.params;
 
-    const res = await Axios.put(
-      `https://jsonplaceholder.typicode.com/users/${id}`,
-      UpdateContact
-    );
-
-    dispatch({ type:'Update_Contact', payload:res.data});
-    // console.log(res.data);
-
-    // หลังจาก ส่งค่า payload ไปให้ Reducer ทำการ clear state
-    this.setState({
-      name: "",
-      email: "",
-      phone: "",
-      errors: ""
-    });
+ 
 
     this.props.history.push('/');
   };
@@ -144,4 +135,19 @@ class EditContact extends Component {
   }
 }
 
-export default EditContact;
+EditContact.propTypes = {
+  dataContacts: PropTypes.array.isRequired,
+  editContact: PropTypes.func.isRequired,
+}
+
+const mapStateToProps = (state) => ({
+  dataContacts: state.StoreData.storeA
+})
+
+
+
+export default connect( mapStateToProps,{editContact} )(EditContact);
+  
+  
+ 
+  

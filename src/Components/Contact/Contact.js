@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import { Consumer } from '../../Context';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Axios from '../../../node_modules/axios';
 import { Link } from 'react-router-dom';
-
+import { connect } from 'react-redux'
+import { delContact } from './../../action/Action'
 export class Contact extends Component {
     constructor(){
         super()
@@ -13,109 +12,75 @@ export class Contact extends Component {
         }
     }
 
-
-
-    deleteDataInfo = async (id, dispatch) => {
-        try {
-            await Axios.delete('https://jsonplaceholder.typicode.com/users/'+id);
-
-            dispatch({ 
-                type:'Deleted_Contact', 
-                payload:id  
-            })
-            
-        } catch (e) {
-            dispatch({ 
-                type:'Deleted_Contact', 
-                payload:id  
-            })
-            
-        }  
+    DelData(id) {
+        console.log("ทำการลบข้อมูลของ ID :",id ,"สำเร็จแล้ว")
+        this.props.delContact(id);
     }
 
-    render() {
-        const { name, email, phone, style, id, username } = this.props.contact;
-        const { showContactInfo } = this.state;
-    
-        return (
-            <Consumer>
-                {value => {
-                    const  {dispatch} = value 
-                    return (
-                        <div className="card card-body mb-3" >
-                        <h5 style={style}>{name} {'  '}
-                            <i className="fas fa-sort-down" 
-                                onClick={() =>
-                                this.setState({
-                                    showContactInfo: !this.state.showContactInfo
-                                })}
-                                style={{
-                                    'cursor': 'pointer'
-                                }}
-                            />
-                            <i className="fas fa-times" 
-                                onDoubleClick={
-                                    this.deleteDataInfo.bind(this, id, dispatch)
-                                }
-                                style={{
-                                    'cursor': 'pointer',
-                                    'color': 'red',
-                                    'float': 'right',
-                                }}
-                            />
-                            <Link to={`contact/edit/${id}`} > 
-                                    <i className="fas fa-pencil-alt"
-                                        style={{
-                                            'cursor': 'pointer',
-                                            'color': 'back',
-                                            'float': 'right',
-                                            'marginRight': '18px',
-                                        }}
-                                    />
-                            </Link>
-                        </h5>  
-                                
-                        { showContactInfo ? 
-                            (
-                                <div className="container">
-                                    <div className="row justify-content-start">
-                                        <div className="col-3">
-                                            Email:
-                                        </div>
-                                        <div className="col-9">
-                                            {email}
-                                        </div>
-                                    </div>
-                                    <div className="row justify-content-start">
-                                        <div className="col-3">
-                                            Phone :
-                                        </div>
-                                        <div className="col-9">
-                                             {phone}
-                                        </div>
-                                    </div>
-                                    <div className="row justify-content-start">
-                                        <div className="col-3">
-                                            User :
-                                        </div>
-                                        <div className="col-9">
-                                            {username}
-                                        </div>
-                                    </div>
 
-                                </div>
-                               
-                            ) : null 
-                        }
-                         
-            
-                      </div>
-                    )
-                }
+
+    render() {
+        //1. รับค่า dataContact จาก Contacts.js และ เปลี่ยนเป็นชื่อย่อ
+        const { name, email, phone,  id, } = this.props.dataContact;
+        const { showContactInfo } = this.state;
+        return (
+            <div className="card card-body mb-3" >
+            <h5> {name} {'  '}
+                <i className="fas fa-sort-down" 
+                    onClick={() =>
+                    this.setState({
+                        showContactInfo: !this.state.showContactInfo
+                    })}
+                    style={{
+                        'cursor': 'pointer'
+                    }}
+                />
+                <i className="fas fa-times" 
+                    onDoubleClick={this.DelData.bind(this, id)}
+                    style={{
+                        'cursor': 'pointer',
+                        'color': 'red',
+                        'float': 'right',
+                    }}
+                />
+                <Link to={`contact/edit/${id}`} > 
+                        <i className="fas fa-pencil-alt"
+                            style={{
+                                'cursor': 'pointer',
+                                'color': 'back',
+                                'float': 'right',
+                                'marginRight': '18px',
+                            }}
+                        />
+                </Link>
+            </h5>  
                     
-                }
-            </Consumer>
-         
+            { showContactInfo ? 
+                (
+                    <div className="container">
+                        <div className="row justify-content-start">
+                            <div className="col-3">
+                                Email:
+                            </div>
+                            <div className="col-9">
+                                {email}
+                            </div>
+                        </div>
+                        <div className="row justify-content-start">
+                            <div className="col-3">
+                                Phone :
+                            </div>
+                            <div className="col-9">
+                                 {phone}
+                            </div>
+                        </div>
+                    </div>
+                   
+                ) : null 
+            }
+             
+
+          </div>
         )
     }
 
@@ -123,12 +88,12 @@ export class Contact extends Component {
 
     
 Contact.propTypes = {
-    contact: PropTypes.object.isRequired,
-    deleteDataInfo: PropTypes.func.isRequired,
+    dataContact: PropTypes.object.isRequired,
+    delContact: PropTypes.func.isRequired,
 }
 
 
-export default Contact;
+export default connect(null,{ delContact })(Contact);
 
 
 

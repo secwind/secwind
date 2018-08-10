@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-import { Consumer } from '../../Context';
-
 import WithFormInputGroup from './../../HOC/WithFormInputGroup';
-import Axios from '../../../node_modules/axios';
+import { connect } from 'react-redux'
+import { addContact } from './../../action/Action'
+import PropTypes from 'prop-types'
+import uuid from 'uuid'
 
-// import uuid from "uuid";
+
+
 
 class AddContact extends Component {
   state = {
@@ -13,7 +15,7 @@ class AddContact extends Component {
     phone:'', 
     errors:{},
   }
-  onSubmithandle =  async (dispatch, e) => {
+  onSubmithandle =  (e) => {
     e.preventDefault();
     const { name, email, phone, errors} = this.state;
     // Chech for Errors
@@ -34,17 +36,12 @@ class AddContact extends Component {
     }
     
     const newContact = {
-
-      name, email, phone, errors,
+      name, 
+      email, 
+      phone,
     }
-    const res = await  Axios.post('https://jsonplaceholder.typicode.com/users',newContact);
 
-    dispatch({
-        type: 'Add_Contact',
-        payload: res.data,
-    })
-
-
+    this.props.addContact(newContact);
     
 
      // หลังจาก ส่งค่า payload ไปให้ Reducer ทำการ clear state 
@@ -71,63 +68,62 @@ class AddContact extends Component {
     const { name, email, phone, errors } = this.state;
     const onChange = this.onChangehandle;
     return (
-      <Consumer>
-        {value => {
-          const { dispatch } = value;
-          return (
-            <div className="card mb-3">
-              <div className="card-header">
-                <h3>Add Contact</h3>
-              </div>
-              <div className="card-body">
-                <form onSubmit={this.onSubmithandle.bind(this, dispatch)} >
-                  <WithFormInputGroup
-                    lable= 'Name :'
-                    name= 'name'
-                    type= 'text'
-                    value= {name}
-                    onChange = {onChange}
-                    placehoder= 'Enter Name...'
-                    autoComplete= 'name'
-                    error={errors.name}
-                  />
-      
-                  <WithFormInputGroup
-                    lable= 'Email :'
-                    name= 'email'
-                    type= 'email'
-                    value= {email}
-                    onChange = {onChange}
-                    placehoder= 'Enter Email...'
-                    autoComplete= 'email'
-                    error={errors.email}
-                  />  
-      
-                  <WithFormInputGroup
-                    lable= 'Phone :'
-                    name= 'phone'
-                    type= 'text'
-                    value= {phone}
-                    onChange = {onChange}
-                    placehoder= 'Enter Phone...'
-                    autoComplete= 'tel-national'
-                    error={errors.phone}
-                  />      
-                  <input 
-                    type="submit" className="btn btn-light btn-block"
-                    value="Add Contact"
-                  />
-                </form>
-              </div>
-            </div>
-          )
-        }}
-      </Consumer>
+      <div className="card mb-3">
+        <div className="card-header">
+          <h3>Add Contact</h3>
+        </div>
+        <div className="card-body">
+          <form onSubmit={this.onSubmithandle.bind(this)} >
+            <WithFormInputGroup
+              lable= 'Name :'
+              name= 'name'
+              type= 'text'
+              value= {name}
+              onChange = {onChange}
+              placehoder= 'Enter Name...'
+              autoComplete= 'name'
+              error={errors.name}
+            />
+
+            <WithFormInputGroup
+              lable= 'Email :'
+              name= 'email'
+              type= 'email'
+              value= {email}
+              onChange = {onChange}
+              placehoder= 'Enter Email...'
+              autoComplete= 'email'
+              error={errors.email}
+            />  
+
+            <WithFormInputGroup
+              lable= 'Phone :'
+              name= 'phone'
+              type= 'text'
+              value= {phone}
+              onChange = {onChange}
+              placehoder= 'Enter Phone...'
+              autoComplete= 'tel-national'
+              error={errors.phone}
+            />      
+            <input 
+              type="submit" className="btn btn-light btn-block"
+              value="Add Contact"
+            />
+          </form>
+        </div>
+      </div>
     )
   }
 }
 
-export default AddContact;
+addContact.propTypes = {
+  addContact: PropTypes.func.isRequired,
+}
+
+// null คือ ไม่มี mapStateToProps (mapStateToProps ใช้กับการ get ข้อมูล)
+export default connect(null ,{ addContact })(AddContact);
+
 
 
 
