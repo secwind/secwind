@@ -24,6 +24,11 @@ const HearderContact = (props) => {
                         </Link>
                     </li>
                     <li className="nav-item">
+                        <Link to="/movie" className="nav-link">
+                        <i className="fas fa-question"></i> Movie
+                        </Link>
+                    </li>
+                    <li className="nav-item">
                         <Link to="/about" className="nav-link">
                         <i className="fas fa-question"></i> About
                         </Link>

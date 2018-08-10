@@ -43,7 +43,7 @@ export class Contact extends Component {
                     const  {dispatch} = value 
                     return (
                         <div className="card card-body mb-3" >
-                        <h4 style={style}>{name} {'  '}
+                        <h5 style={style}>{name} {'  '}
                             <i className="fas fa-sort-down" 
                                 onClick={() =>
                                 this.setState({
@@ -73,7 +73,7 @@ export class Contact extends Component {
                                         }}
                                     />
                             </Link>
-                        </h4>  
+                        </h5>  
                                 
                         { showContactInfo ? 
                             (

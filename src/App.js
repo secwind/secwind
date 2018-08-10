@@ -10,6 +10,7 @@ import About from "./About";
 import Notfound from "./Components/NotFoundPages/Notfound";
 import Test from "./Test";
 import EditContact from "./Components/Contact/EditContact";
+import SearchMovie from './Router/SearchMovie';
 
 class App extends React.Component {
   render() {
@@ -28,6 +29,7 @@ class App extends React.Component {
                 <Route exact path="/contact/edit/:id" component={EditContact} />
                 <Route exact path="/about/:urlReq" component={About} />
                 <Route exact path="/test" component={Test} />
+                <Route exact path="/movie" component={SearchMovie} />
                 <Route component={Notfound} />
               </Switch>
             </div>
