@@ -22,7 +22,7 @@ export default class Contacts extends Component {
                 return (
                     <React.Fragment>
                         <h1 className="dispaly-4 mb-2">
-                            <span className="text-danger">Contact</span>List
+                            <span className="text-danger">Contact</span>List SecWind
                         </h1>
                         { contacts.map(contact => (
                             <Contact
