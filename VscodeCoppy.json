@@ -1,0 +1,43 @@
+{
+    "workbench.iconTheme": "vscode-icons",
+    "vsicons.projectDetection.autoReload": true,
+    "editor.snippetSuggestions": "top",
+    "files.autoSave": "afterDelay",
+    "editor.wordWrap": "on",
+    "prettier.singleQuote": true,
+    "liveServer.settings.donotShowInfoMsg": true,
+
+    /* Element */
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact"
+    },
+    "emmet.syntaxProfiles": {
+        "javascript": "jsx",
+        "javascript": "html",
+    },
+
+    "launch": {
+
+        "version": "0.1.0",
+        "configurations": [{
+                "name": "Launch localhost",
+                "type": "chrome",
+                "request": "launch",
+                "url": "http://localhost:3000/#/",
+                "webRoot": "${workspaceFolder}/wwwroot"
+            },
+            {
+                "name": "Launch index.html",
+                "type": "chrome",
+                "request": "launch",
+                "file": "${workspaceFolder}/index.html"
+            },
+        ]
+
+    },
+    "importCost.showCalculatingDecoration": true,
+    "importCost.mediumPackageColor": "#7cc36e",
+    "importCost.largePackageColor": "#d44e40",
+    "importCost.smallPackageColor": "#7cc36e",
+
+}
