@@ -13,12 +13,19 @@ import EditContact from "./Components/Contact/EditContact";
 import SearchMovie from './Router/SearchMovie';
 import { Provider } from 'react-redux';
 import store from './store';
+import ClientsPanel from "./Router/ClientsPanel";
+
+
+
 
 class App extends React.Component {
   render() {
     return (
+      
+      
       <Provider store={store}>
         <Router>
+        
           <div className="app">
             <div className="Header" style={headingStyle}>
               <HearderContact nameH="Header My Project" />
@@ -28,11 +35,11 @@ class App extends React.Component {
               <Switch>
                  <Route exact path="/" component={Contacts} />
                 <Route exact path="/contact/add" component={AddContact} />
-                {/*<Route exact path="/contact/edit/:id" component={EditContact} />
+                <Route exact path="/contact/edit/:id" component={EditContact} />
                 <Route exact path="/about/:urlReq" component={About} />
                 <Route exact path="/test" component={Test} />
-                <Route exact path="/movie" component={SearchMovie} />
-                <Route component={Notfound} /> */}
+                <Route exact path="/movie" component={SearchMovie} />ClientsPanel
+                <Route component={Notfound} />
               </Switch>
             </div>
           </div>

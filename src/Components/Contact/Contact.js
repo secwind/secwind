@@ -35,7 +35,7 @@ export class Contact extends Component {
                         'cursor': 'pointer'
                     }}
                 />
-                <i className="fas fa-times" 
+                <i className="fas fa-times"  //ปุ่มลบ
                     onDoubleClick={this.DelData.bind(this, id)}
                     style={{
                         'cursor': 'pointer',
@@ -43,7 +43,8 @@ export class Contact extends Component {
                         'float': 'right',
                     }}
                 />
-                <Link to={`contact/edit/${id}`} > 
+                {/* ปุ่มแก้ไข */}
+                <Link to={`contact/edit/${id}`} >  
                         <i className="fas fa-pencil-alt"
                             style={{
                                 'cursor': 'pointer',

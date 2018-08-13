@@ -35,7 +35,7 @@ class Contacts extends Component {
 }
 
 Contacts.propTypes = {
-    dataContacts: PropTypes.array.isRequired,
+    // dataContacts: PropTypes.array.isRequired,
     getContact: PropTypes.func.isRequired,
 }
 
